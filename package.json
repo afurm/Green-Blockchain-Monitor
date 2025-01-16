@@ -1,0 +1,39 @@
+{
+  "name": "green-blockchain-monitor",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "collect-data": "NODE_ENV=development ts-node -r tsconfig-paths/register -P tsconfig.scripts.json src/scripts/collectAndPreprocessData.ts",
+    "seed": "NODE_ENV=development ts-node -r tsconfig-paths/register -P tsconfig.scripts.json src/scripts/seedDatabase.ts"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@prisma/client": "latest",
+    "@types/uuid": "^10.0.0",
+    "autoprefixer": "latest",
+    "axios": "latest",
+    "chart.js": "^4.4.7",
+    "mysql2": "latest",
+    "next": "latest",
+    "postcss": "latest",
+    "prisma": "latest",
+    "react": "latest",
+    "react-chartjs-2": "^5.3.0",
+    "react-dom": "latest",
+    "react-hot-toast": "^2.5.1",
+    "tailwindcss": "latest",
+    "uuid": "^11.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "latest"
+  }
+}

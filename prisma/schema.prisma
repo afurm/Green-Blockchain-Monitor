@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model BlockchainMetric {
+  id              Int      @id @default(autoincrement())
+  timestamp       DateTime @default(now())
+  blockchain      String
+  energyUsageKwh  Float
+  emissionsKgCo2  Float
+  transactionCount Int
+  blockNumber     Int
+  gasUsed         Int
+  avgGasPrice     Float
+
+  @@index([timestamp])
+  @@index([blockchain])
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  preferences UserPreferences?
+  feedback    InsightFeedback[]
+  goals       LearningGoals?
+  insights    Insight[]
+}
+
+model UserPreferences {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @unique
+  user      User     @relation(fields: [userId], references: [id])
+  blockchains Json   // Array of blockchain names
+  focusAreas Json    // Array of focus areas
+  alertThresholds Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LearningGoals {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @unique
+  user      User     @relation(fields: [userId], references: [id])
+  energyEfficiencyPriority Int @default(1) // 1-5 scale
+  emissionsPriority Int @default(1) // 1-5 scale
+  transactionSpeedPriority Int @default(1) // 1-5 scale
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model InsightFeedback {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  insightId String
+  rating    Int // 1-5 scale
+  comment   String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([insightId])
+}
+
+model Insight {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  user            User     @relation(fields: [userId], references: [id])
+  type            String   // 'info', 'warning', 'alert'
+  message         String   @db.Text
+  blockchain      String
+  category        String   // 'efficiency', 'emissions', 'capacity', etc.
+  createdAt       DateTime @default(now())
+  metadata        Json?    // Additional data like thresholds, percentage changes, etc.
+  isRead          Boolean  @default(false)
+  isArchived      Boolean  @default(false)
+} 

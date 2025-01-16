@@ -1,0 +1,175 @@
+2025-01-01 14:59:30,123 - INFO - Starting insights generation script
+2025-01-01 14:59:30,124 - INFO - Received data argument: [{"blockchainId":1,"timestamp":"2025-01-01T12:52:26.662Z","energyUsageKwh":0.2,"transactionCount":10...
+2025-01-01 14:59:30,125 - INFO - Parsed data into DataFrame with 12 rows
+2025-01-01 14:59:30,128 - INFO - Initialized insights service
+2025-01-01 14:59:30,137 - INFO - Loaded model from models/energy_usage_20250101_144419.joblib
+2025-01-01 14:59:30,144 - INFO - Loaded model from models/emissions_20250101_144419.joblib
+2025-01-01 14:59:30,145 - INFO - Loaded ML models
+2025-01-01 14:59:30,146 - ERROR - Error generating insights: X has 4 features, but RandomForestRegressor is expecting 5 features as input.
+Traceback (most recent call last):
+  File "/Users/afurm/Development/Green-Blockchain-Monitor-AI-Agent/src/scripts/generate_insights.py", line 71, in main
+    energy_pred = energy_model.predict(prediction_features)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/afurm/Development/Green-Blockchain-Monitor-AI-Agent/venv/lib/python3.11/site-packages/sklearn/ensemble/_forest.py", line 984, in predict
+    X = self._validate_X_predict(X)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/afurm/Development/Green-Blockchain-Monitor-AI-Agent/venv/lib/python3.11/site-packages/sklearn/ensemble/_forest.py", line 599, in _validate_X_predict
+    X = self._validate_data(X, dtype=DTYPE, accept_sparse="csr", reset=False)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/afurm/Development/Green-Blockchain-Monitor-AI-Agent/venv/lib/python3.11/site-packages/sklearn/base.py", line 625, in _validate_data
+    self._check_n_features(X, reset=reset)
+  File "/Users/afurm/Development/Green-Blockchain-Monitor-AI-Agent/venv/lib/python3.11/site-packages/sklearn/base.py", line 414, in _check_n_features
+    raise ValueError(
+ValueError: X has 4 features, but RandomForestRegressor is expecting 5 features as input.
+2025-01-01 14:59:55,570 - INFO - Starting insights generation script
+2025-01-01 14:59:55,571 - INFO - Received data argument: [{"blockchainId":1,"timestamp":"2025-01-01T12:52:26.662Z","energyUsageKwh":0.2,"transactionCount":10...
+2025-01-01 14:59:55,572 - INFO - Parsed data into DataFrame with 12 rows
+2025-01-01 14:59:55,576 - INFO - Initialized insights service
+2025-01-01 14:59:55,585 - INFO - Loaded model from models/energy_usage_20250101_144419.joblib
+2025-01-01 14:59:55,592 - INFO - Loaded model from models/emissions_20250101_144419.joblib
+2025-01-01 14:59:55,592 - INFO - Loaded ML models
+2025-01-01 14:59:55,597 - INFO - Generated predictions
+2025-01-01 14:59:55,640 - INFO - Detected 0 anomalies
+2025-01-01 14:59:55,640 - INFO - Generated 0 insights
+2025-01-01 14:59:55,640 - INFO - Generated 0 alerts
+2025-01-01 14:59:55,640 - INFO - Successfully generated and returned insights
+2025-01-01 15:03:00,393 - INFO - Starting insights generation script
+2025-01-01 15:03:00,393 - INFO - Received data argument: [{"blockchainId":1,"timestamp":"2025-01-01T12:52:26.662Z","energyUsageKwh":0.2,"transactionCount":10...
+2025-01-01 15:03:00,394 - INFO - Parsed data into DataFrame with 12 rows
+2025-01-01 15:03:00,398 - INFO - Initialized insights service
+2025-01-01 15:03:00,407 - INFO - Loaded model from models/energy_usage_20250101_144419.joblib
+2025-01-01 15:03:00,414 - INFO - Loaded model from models/emissions_20250101_144419.joblib
+2025-01-01 15:03:00,414 - INFO - Loaded ML models
+2025-01-01 15:03:00,419 - INFO - Generated predictions
+2025-01-01 15:03:00,464 - INFO - Detected 0 anomalies
+2025-01-01 15:03:00,464 - INFO - Generated 0 insights
+2025-01-01 15:03:00,464 - INFO - Generated 0 alerts
+2025-01-01 15:03:00,464 - INFO - Successfully generated and returned insights
+2025-01-01 15:03:04,455 - INFO - Starting insights generation script
+2025-01-01 15:03:04,455 - INFO - Received data argument: [{"blockchainId":1,"timestamp":"2025-01-01T12:52:26.662Z","energyUsageKwh":0.2,"transactionCount":10...
+2025-01-01 15:03:04,456 - INFO - Parsed data into DataFrame with 12 rows
+2025-01-01 15:03:04,458 - INFO - Initialized insights service
+2025-01-01 15:03:04,466 - INFO - Loaded model from models/energy_usage_20250101_144419.joblib
+2025-01-01 15:03:04,472 - INFO - Loaded model from models/emissions_20250101_144419.joblib
+2025-01-01 15:03:04,472 - INFO - Loaded ML models
+2025-01-01 15:03:04,476 - INFO - Generated predictions
+2025-01-01 15:03:04,515 - INFO - Detected 0 anomalies
+2025-01-01 15:03:04,515 - INFO - Generated 0 insights
+2025-01-01 15:03:04,515 - INFO - Generated 0 alerts
+2025-01-01 15:03:04,515 - INFO - Successfully generated and returned insights
+2025-01-01 15:03:09,658 - INFO - Starting insights generation script
+2025-01-01 15:03:09,658 - INFO - Received data argument: [{"blockchainId":1,"timestamp":"2025-01-01T12:52:26.662Z","energyUsageKwh":0.2,"transactionCount":10...
+2025-01-01 15:03:09,658 - INFO - Parsed data into DataFrame with 12 rows
+2025-01-01 15:03:09,659 - INFO - Initialized insights service
+2025-01-01 15:03:09,667 - INFO - Loaded model from models/energy_usage_20250101_144419.joblib
+2025-01-01 15:03:09,673 - INFO - Loaded model from models/emissions_20250101_144419.joblib
+2025-01-01 15:03:09,674 - INFO - Loaded ML models
+2025-01-01 15:03:09,677 - INFO - Generated predictions
+2025-01-01 15:03:09,716 - INFO - Detected 0 anomalies
+2025-01-01 15:03:09,717 - INFO - Generated 0 insights
+2025-01-01 15:03:09,717 - INFO - Generated 0 alerts
+2025-01-01 15:03:09,717 - INFO - Successfully generated and returned insights
+2025-01-01 15:10:20,230 - INFO - Starting insights generation script
+2025-01-01 15:10:20,230 - INFO - Received data argument: [{"blockchainId":1,"timestamp":"2025-01-01T12:52:26.662Z","energyUsageKwh":0.2,"transactionCount":10...
+2025-01-01 15:10:20,231 - INFO - Parsed data into DataFrame with 12 rows
+2025-01-01 15:10:20,236 - INFO - Loaded user preferences and learning goals
+2025-01-01 15:10:20,236 - INFO - Initialized insights service
+2025-01-01 15:10:20,244 - INFO - Loaded model from models/energy_usage_20250101_144419.joblib
+2025-01-01 15:10:20,252 - INFO - Loaded model from models/emissions_20250101_144419.joblib
+2025-01-01 15:10:20,252 - INFO - Loaded ML models
+2025-01-01 15:10:20,256 - INFO - Generated predictions
+2025-01-01 15:10:20,302 - INFO - Detected 0 anomalies
+2025-01-01 15:10:20,303 - INFO - Generated 1 insights
+2025-01-01 15:10:20,303 - INFO - Generated 2 alerts
+2025-01-01 15:10:20,303 - INFO - Successfully generated and returned insights
+2025-01-01 15:13:17,008 - INFO - Starting insights generation script
+2025-01-01 15:13:17,008 - INFO - Received data argument: [{"blockchainId":1,"timestamp":"2025-01-01T12:52:26.662Z","energyUsageKwh":0.2,"transactionCount":10...
+2025-01-01 15:13:17,009 - INFO - Parsed data into DataFrame with 12 rows
+2025-01-01 15:13:17,015 - INFO - Loaded user preferences and learning goals
+2025-01-01 15:13:17,015 - INFO - Initialized insights service
+2025-01-01 15:13:17,027 - INFO - Loaded model from models/energy_usage_20250101_144419.joblib
+2025-01-01 15:13:17,034 - INFO - Loaded model from models/emissions_20250101_144419.joblib
+2025-01-01 15:13:17,034 - INFO - Loaded ML models
+2025-01-01 15:13:17,039 - INFO - Generated predictions
+2025-01-01 15:13:17,104 - INFO - Detected 0 anomalies
+2025-01-01 15:13:17,104 - INFO - Generated 0 insights
+2025-01-01 15:13:17,104 - INFO - Generated 2 alerts
+2025-01-01 15:13:17,104 - INFO - Successfully generated and returned insights
+2025-01-01 15:13:18,030 - INFO - Starting insights generation script
+2025-01-01 15:13:18,030 - INFO - Received data argument: [{"blockchainId":1,"timestamp":"2025-01-01T12:52:26.662Z","energyUsageKwh":0.2,"transactionCount":10...
+2025-01-01 15:13:18,030 - INFO - Parsed data into DataFrame with 12 rows
+2025-01-01 15:13:18,032 - INFO - Loaded user preferences and learning goals
+2025-01-01 15:13:18,032 - INFO - Initialized insights service
+2025-01-01 15:13:18,039 - INFO - Loaded model from models/energy_usage_20250101_144419.joblib
+2025-01-01 15:13:18,046 - INFO - Loaded model from models/emissions_20250101_144419.joblib
+2025-01-01 15:13:18,046 - INFO - Loaded ML models
+2025-01-01 15:13:18,050 - INFO - Generated predictions
+2025-01-01 15:13:18,091 - INFO - Detected 0 anomalies
+2025-01-01 15:13:18,091 - INFO - Generated 0 insights
+2025-01-01 15:13:18,091 - INFO - Generated 2 alerts
+2025-01-01 15:13:18,092 - INFO - Successfully generated and returned insights
+2025-01-01 15:13:47,393 - INFO - Starting insights generation script
+2025-01-01 15:13:47,393 - INFO - Received data argument: [{"blockchainId":1,"timestamp":"2025-01-01T12:52:26.662Z","energyUsageKwh":0.2,"transactionCount":10...
+2025-01-01 15:13:47,398 - INFO - Parsed data into DataFrame with 12 rows
+2025-01-01 15:13:47,401 - INFO - Loaded user preferences and learning goals
+2025-01-01 15:13:47,401 - INFO - Initialized insights service
+2025-01-01 15:13:47,410 - INFO - Loaded model from models/energy_usage_20250101_144419.joblib
+2025-01-01 15:13:47,417 - INFO - Loaded model from models/emissions_20250101_144419.joblib
+2025-01-01 15:13:47,417 - INFO - Loaded ML models
+2025-01-01 15:13:47,422 - INFO - Generated predictions
+2025-01-01 15:13:47,464 - INFO - Detected 0 anomalies
+2025-01-01 15:13:47,464 - INFO - Generated 0 insights
+2025-01-01 15:13:47,464 - INFO - Generated 2 alerts
+2025-01-01 15:13:47,464 - INFO - Successfully generated and returned insights
+2025-01-01 15:14:03,318 - INFO - Starting insights generation script
+2025-01-01 15:14:03,318 - INFO - Received data argument: [{"blockchainId":1,"timestamp":"2025-01-01T12:52:26.662Z","energyUsageKwh":0.2,"transactionCount":10...
+2025-01-01 15:14:03,321 - INFO - Parsed data into DataFrame with 12 rows
+2025-01-01 15:14:03,332 - INFO - Loaded user preferences and learning goals
+2025-01-01 15:14:03,333 - INFO - Initialized insights service
+2025-01-01 15:14:03,344 - INFO - Loaded model from models/energy_usage_20250101_144419.joblib
+2025-01-01 15:14:03,351 - INFO - Loaded model from models/emissions_20250101_144419.joblib
+2025-01-01 15:14:03,352 - INFO - Loaded ML models
+2025-01-01 15:14:03,357 - INFO - Generated predictions
+2025-01-01 15:14:03,404 - INFO - Detected 0 anomalies
+2025-01-01 15:14:03,404 - INFO - Generated 0 insights
+2025-01-01 15:14:03,404 - INFO - Generated 2 alerts
+2025-01-01 15:14:03,404 - INFO - Successfully generated and returned insights
+2025-01-01 15:14:41,975 - INFO - Starting insights generation script
+2025-01-01 15:14:41,975 - INFO - Received data argument: [{"blockchainId":1,"timestamp":"2025-01-01T12:52:26.662Z","energyUsageKwh":0.2,"transactionCount":10...
+2025-01-01 15:14:41,976 - INFO - Parsed data into DataFrame with 12 rows
+2025-01-01 15:14:41,979 - INFO - Loaded user preferences and learning goals
+2025-01-01 15:14:41,979 - INFO - Initialized insights service
+2025-01-01 15:14:41,988 - INFO - Loaded model from models/energy_usage_20250101_144419.joblib
+2025-01-01 15:14:41,995 - INFO - Loaded model from models/emissions_20250101_144419.joblib
+2025-01-01 15:14:41,995 - INFO - Loaded ML models
+2025-01-01 15:14:41,999 - INFO - Generated predictions
+2025-01-01 15:14:42,043 - INFO - Detected 0 anomalies
+2025-01-01 15:14:42,047 - INFO - Generated 0 insights
+2025-01-01 15:14:42,047 - INFO - Generated 2 alerts
+2025-01-01 15:14:42,047 - INFO - Successfully generated and returned insights
+2025-01-01 15:15:11,720 - INFO - Starting insights generation script
+2025-01-01 15:15:11,720 - INFO - Received data argument: [{"blockchainId":1,"timestamp":"2025-01-01T12:52:26.662Z","energyUsageKwh":0.2,"transactionCount":10...
+2025-01-01 15:15:11,721 - INFO - Parsed data into DataFrame with 12 rows
+2025-01-01 15:15:11,727 - INFO - Loaded user preferences and learning goals
+2025-01-01 15:15:11,727 - INFO - Initialized insights service
+2025-01-01 15:15:11,738 - INFO - Loaded model from models/energy_usage_20250101_144419.joblib
+2025-01-01 15:15:11,748 - INFO - Loaded model from models/emissions_20250101_144419.joblib
+2025-01-01 15:15:11,749 - INFO - Loaded ML models
+2025-01-01 15:15:11,754 - INFO - Generated predictions
+2025-01-01 15:15:11,813 - INFO - Detected 0 anomalies
+2025-01-01 15:15:11,813 - INFO - Generated 0 insights
+2025-01-01 15:15:11,813 - INFO - Generated 2 alerts
+2025-01-01 15:15:11,813 - INFO - Successfully generated and returned insights
+2025-01-01 15:15:17,007 - INFO - Starting insights generation script
+2025-01-01 15:15:17,007 - INFO - Received data argument: [{"blockchainId":1,"timestamp":"2025-01-01T12:52:26.662Z","energyUsageKwh":0.2,"transactionCount":10...
+2025-01-01 15:15:17,008 - INFO - Parsed data into DataFrame with 12 rows
+2025-01-01 15:15:17,009 - INFO - Loaded user preferences and learning goals
+2025-01-01 15:15:17,009 - INFO - Initialized insights service
+2025-01-01 15:15:17,019 - INFO - Loaded model from models/energy_usage_20250101_144419.joblib
+2025-01-01 15:15:17,027 - INFO - Loaded model from models/emissions_20250101_144419.joblib
+2025-01-01 15:15:17,027 - INFO - Loaded ML models
+2025-01-01 15:15:17,032 - INFO - Generated predictions
+2025-01-01 15:15:17,076 - INFO - Detected 0 anomalies
+2025-01-01 15:15:17,077 - INFO - Generated 0 insights
+2025-01-01 15:15:17,077 - INFO - Generated 2 alerts
+2025-01-01 15:15:17,078 - INFO - Successfully generated and returned insights
