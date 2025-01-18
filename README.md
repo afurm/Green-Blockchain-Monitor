@@ -1,96 +1,80 @@
 # Green Blockchain Monitor
 
-An AI-powered dashboard for monitoring and analyzing the environmental impact of blockchain networks. This application provides real-time insights into the sustainability metrics of Ethereum, Bitcoin, and Solana networks.
+An AI-powered dashboard for monitoring and analyzing the environmental impact of blockchain networks in real-time.
 
-![Green Blockchain Monitor](public/favicon.svg)
+🌐 **[Live Demo](https://green-blockchain-monitor.vercel.app/)**
 
-## Features
+## Overview
 
-- **Real-time Environmental Metrics**
-  - Energy consumption analysis
-  - Carbon footprint tracking
-  - Water usage monitoring
-  - E-waste generation statistics
+Green Blockchain Monitor provides real-time analysis and insights into the environmental impact of major blockchain networks (Ethereum, Bitcoin, and Solana), helping users understand and optimize their blockchain sustainability.
 
-- **Interactive Visualizations**
-  - Comparative bar charts
-  - Network-specific metrics
-  - Historical trend analysis
-  - Environmental impact breakdowns
+## Key Features
 
-- **AI-Powered Analysis**
-  - Sustainability insights generation
-  - Predictive environmental trends
-  - Network-specific recommendations
-  - Comprehensive sustainability reports
+### 🔍 Environmental Impact Dashboard
 
-- **Multi-Network Support**
-  - Ethereum (ETH)
-  - Bitcoin (BTC)
-  - Solana (SOL)
+Real-time monitoring of key environmental metrics:
+- ⚡ **Energy Usage**: ~134 TWh annually
+  - ETH: 23 TWh
+  - BTC: 107 TWh
+  - SOL: 3.8 TWh
+- 🌍 **Carbon Footprint**: ~67M tons CO2 annually
+  - ETH: 11M tons
+  - BTC: 54M tons
+  - SOL: 1.9M tons
+- 💧 **Water Usage**: ~132B Liters annually
+  - ETH: 45B L
+  - BTC: 75B L
+  - SOL: 12B L
+- ♻️ **E-waste**: ~31,200 tons annually
+  - ETH: 8,000 tons
+  - BTC: 22,000 tons
+  - SOL: 1,200 tons
+
+### 📊 Network Analysis
+
+- Real-time energy consumption tracking
+- CO2 emissions monitoring
+- Network-specific environmental metrics
+- Comparative blockchain analysis
+
+### 🤖 AI-Powered Features
+
+- **24/7 Real-time Monitoring**: Continuous network analysis
+- **AI-Powered Analysis**: Smart insights & predictions
+- **Data Transparency**: 100% verifiable metrics
+- **Sustainability Reports**: Comprehensive environmental assessments
+- **Optimization Suggestions**: AI-driven recommendations
+
+### 🌍 Why Does This Matter?
+
+- Blockchain networks use a lot of computers working 24/7 to keep everything secure
+- These computers need electricity, which often comes from fossil fuels
+- Mining equipment gets outdated quickly, creating electronic waste
+- The good news: Many networks are moving to greener solutions!
 
 ## Tech Stack
 
-- **Frontend**
-  - Next.js 14 (React)
-  - TypeScript
-  - Tailwind CSS
-  - Chart.js for data visualization
-
-- **APIs and Services**
-  - OpenAI API for analysis
-  - Etherscan API for Ethereum data
-  - Blockchain.info API for Bitcoin data
-  - Public RPC endpoints for network stats
-
-- **Development Tools**
-  - ESLint for code quality
-  - Prettier for code formatting
-  - React Hot Toast for notifications
+- **Frontend**: Next.js 13, React, TypeScript, TailwindCSS
+- **AI Integration**: OpenAI GPT-3.5
+- **Data Visualization**: Chart.js
+- **Deployment**: Vercel
 
 ## Getting Started
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/green-blockchain-monitor.git
-   cd green-blockchain-monitor
-   ```
-
-2. **Install dependencies**
+1. Clone the repository
+2. Install dependencies:
    ```bash
    npm install
    ```
-
-3. **Set up environment variables**
-   Create a `.env` file in the root directory with:
+3. Set up environment variables:
    ```
-   OPENAI_API_KEY=your_openai_api_key
-   ETHERSCAN_API_KEY=your_etherscan_api_key
+   OPENAI_API_KEY=your_api_key_here
+   ETHERSCAN_API_KEY=your_etherscan_api_key_here
    ```
-
-4. **Run the development server**
+4. Run the development server:
    ```bash
    npm run dev
    ```
-
-5. **Open the application**
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-## Environmental Impact Analysis
-
-The application analyzes several key metrics:
-
-- **Energy Usage**: Measures the total energy consumption in TWh/year
-- **Carbon Footprint**: Calculates CO2 emissions in million tons/year
-- **Water Consumption**: Tracks water usage in billion liters/year
-- **E-waste Generation**: Monitors electronic waste in tons/year
-
-## AI-Powered Features
-
-- **Real-time Analysis**: Processes current blockchain metrics to provide immediate insights
-- **Predictive Modeling**: Projects future environmental impact trends
-- **Optimization Suggestions**: Provides actionable recommendations for improving sustainability
-- **Sustainability Reports**: Generates comprehensive environmental impact assessments
 
 ## Contributing
 
@@ -98,14 +82,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Ethereum Energy Consumption Index
-- Cambridge Bitcoin Electricity Consumption Index
-- Blockchain sustainability research community
-
-## Contact
-
-For questions or feedback, please open an issue in the repository. 
+© 2025 Green Blockchain Monitor. All rights reserved. 
