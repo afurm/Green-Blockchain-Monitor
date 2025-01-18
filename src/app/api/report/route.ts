@@ -9,24 +9,19 @@ export async function GET(request: Request) {
         const timeframe = searchParams.get('timeframe') || '24h';
 
         // Fetch latest blockchain metrics
-        const [ethMetrics, btcMetrics] = await Promise.all([
-            fetchBlockchainData('Ethereum'),
-            fetchBlockchainData('Bitcoin')
-        ]);
-
-        const metrics = {
-            ethereum: ethMetrics,
-            bitcoin: btcMetrics,
-            timeframe,
-            timestamp: new Date().toISOString()
-        };
-
+        const blockchainData = await fetchBlockchainData();
+        
         // Generate sustainability report using OpenAI
-        const report = await generateSustainabilityReport(metrics);
+        const report = await generateSustainabilityReport(blockchainData);
 
         // Return the combined response
         return NextResponse.json({
-            metrics,
+            metrics: {
+                ethereum: blockchainData.find(m => m.network === 'ethereum'),
+                bitcoin: blockchainData.find(m => m.network === 'bitcoin'),
+                timeframe,
+                timestamp: new Date().toISOString()
+            },
             report,
             status: 'success'
         });

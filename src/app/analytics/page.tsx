@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { toast } from 'react-hot-toast';
 
-const SustainabilityChart = dynamic(() => import('../components/charts/SustainabilityChart'), { ssr: false });
-const EmissionsChart = dynamic(() => import('../components/charts/EmissionsChart'), { ssr: false });
+const SustainabilityChart = dynamic(() => import('@/app/components/charts/SustainabilityChart'), { ssr: false });
+const EmissionsChart = dynamic(() => import('@/app/components/charts/EmissionsChart'), { ssr: false });
 
 interface AnalyticsData {
   metrics: Array<{
