@@ -33,28 +33,46 @@ interface Analysis {
     }>;
 }
 
-export async function analyzeBlockchainData(metrics: BlockchainMetrics[]): Promise<Analysis> {
+export async function analyzeBlockchainData(metrics: BlockchainMetrics[], locale: string = 'en'): Promise<Analysis> {
     try {
+        const systemPrompt = locale === 'uk' 
+            ? `Ви експерт з аналізу сталості блокчейну. Проаналізуйте надані метрики та створіть детальні висновки для кожної блокчейн-мережі (Ethereum, Bitcoin та Solana).
+               Поверніть відповідь у форматі JSON з:
+               {
+                   "networkAnalysis": {
+                       "ethereum": { "title": "Аналіз Сталості Ethereum", "content": "детальний аналіз..." },
+                       "bitcoin": { "title": "Аналіз Сталості Bitcoin", "content": "детальний аналіз..." },
+                       "solana": { "title": "Аналіз Сталості Solana", "content": "детальний аналіз..." }
+                   },
+                   "insights": [
+                       { "type": "info/warning/alert", "message": "повідомлення з висновком", "confidence": 0-1 }
+                   ],
+                   "predictions": [
+                       { "timestamp": "ISO date", "energyUsageKwh": number, "emissionsKgCo2": number, "confidence": 0-1 }
+                   ]
+               }`
+            : `You are an expert in blockchain sustainability analysis. Analyze the provided metrics and generate detailed insights for each blockchain network (Ethereum, Bitcoin, and Solana).
+               Return the response in JSON format with:
+               {
+                   "networkAnalysis": {
+                       "ethereum": { "title": "Ethereum Sustainability Analysis", "content": "detailed analysis..." },
+                       "bitcoin": { "title": "Bitcoin Sustainability Analysis", "content": "detailed analysis..." },
+                       "solana": { "title": "Solana Sustainability Analysis", "content": "detailed analysis..." }
+                   },
+                   "insights": [
+                       { "type": "info/warning/alert", "message": "insight message", "confidence": 0-1 }
+                   ],
+                   "predictions": [
+                       { "timestamp": "ISO date", "energyUsageKwh": number, "emissionsKgCo2": number, "confidence": 0-1 }
+                   ]
+               }`;
+
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [
                 {
                     role: "system",
-                    content: `You are an expert in blockchain sustainability analysis. Analyze the provided metrics and generate detailed insights for each blockchain network (Ethereum, Bitcoin, and Solana).
-                    Return the response in JSON format with:
-                    {
-                        "networkAnalysis": {
-                            "ethereum": { "title": "Ethereum Sustainability Analysis", "content": "detailed analysis..." },
-                            "bitcoin": { "title": "Bitcoin Sustainability Analysis", "content": "detailed analysis..." },
-                            "solana": { "title": "Solana Sustainability Analysis", "content": "detailed analysis..." }
-                        },
-                        "insights": [
-                            { "type": "info/warning/alert", "message": "insight message", "confidence": 0-1 }
-                        ],
-                        "predictions": [
-                            { "timestamp": "ISO date", "energyUsageKwh": number, "emissionsKgCo2": number, "confidence": 0-1 }
-                        ]
-                    }`
+                    content: systemPrompt
                 },
                 {
                     role: "user",
@@ -69,22 +87,35 @@ export async function analyzeBlockchainData(metrics: BlockchainMetrics[]): Promi
 
         const analysis = JSON.parse(response.choices[0].message.content);
         return {
-            networkAnalysis: analysis.networkAnalysis || getDefaultNetworkAnalysis(),
+            networkAnalysis: analysis.networkAnalysis || getDefaultNetworkAnalysis(locale),
             insights: analysis.insights || [],
             predictions: analysis.predictions || []
         };
     } catch (error) {
         console.error('Error analyzing blockchain data:', error);
         return {
-            networkAnalysis: getDefaultNetworkAnalysis(),
+            networkAnalysis: getDefaultNetworkAnalysis(locale),
             insights: [],
             predictions: []
         };
     }
 }
 
-function getDefaultNetworkAnalysis() {
-    return {
+function getDefaultNetworkAnalysis(locale: string = 'en') {
+    return locale === 'uk' ? {
+        ethereum: {
+            title: "Аналіз Сталості Ethereum",
+            content: "Перехід Ethereum на Proof of Stake значно знизив його енергоспоживання приблизно на 99.95%. Поточні метрики показують подальше покращення ефективності та зменшення впливу на довкілля порівняно з PoW ланцюгами."
+        },
+        bitcoin: {
+            title: "Аналіз Сталості Bitcoin",
+            content: "Механізм консенсусу Bitcoin Proof of Work продовжує вимагати значних енергетичних ресурсів. Проте спостерігається тенденція до збільшення використання відновлюваних джерел енергії в майнінгових операціях, що може допомогти зменшити його вплив на довкілля."
+        },
+        solana: {
+            title: "Аналіз Сталості Solana",
+            content: "Унікальний механізм Proof of History Solana у поєднанні з Proof of Stake забезпечує високу пропускну здатність при відносно низькому енергоспоживанні. Мережа демонструє перспективні показники сталості порівняно з традиційними системами PoW."
+        }
+    } : {
         ethereum: {
             title: "Ethereum Sustainability Analysis",
             content: "Ethereum's transition to Proof of Stake has significantly reduced its energy consumption by ~99.95%. Current metrics show continued efficiency improvements and lower environmental impact compared to PoW chains."
@@ -100,35 +131,58 @@ function getDefaultNetworkAnalysis() {
     };
 }
 
-export async function generateSustainabilityReport(metrics: BlockchainMetrics[]): Promise<any> {
+export async function generateSustainabilityReport(metrics: BlockchainMetrics[], locale: string = 'en'): Promise<any> {
     try {
+        const systemPrompt = locale === 'uk'
+            ? `Створіть комплексний звіт про сталий розвиток на основі наданих метрик блокчейну.
+               Звіт повинен включати такі розділи:
+               1. Короткий Огляд
+               2. Мережа Ethereum - Детальний аналіз екологічних метрик Ethereum
+               3. Мережа Bitcoin - Детальний аналіз екологічних метрик Bitcoin
+               4. Мережа Solana - Детальний аналіз екологічних метрик Solana
+               5. Висновок
+               
+               Поверніть відповідь у такому форматі JSON:
+               {
+                   "summary": "Текст короткого огляду",
+                   "sections": [
+                       {
+                           "title": "Мережа Ethereum",
+                           "content": "Детальний аналіз Ethereum...",
+                           "key_metrics": ["Використання енергії: X ТВт·год", "Викиди CO2: Y тонн"],
+                           "recommendations": ["Рекомендація 1", "Рекомендація 2"]
+                       }
+                   ],
+                   "conclusion": "Текст висновку"
+               }`
+            : `Generate a comprehensive sustainability report based on the blockchain metrics provided.
+               The report must include these specific sections:
+               1. Executive Summary
+               2. Ethereum Network - Detailed analysis of Ethereum's environmental metrics
+               3. Bitcoin Network - Detailed analysis of Bitcoin's environmental metrics
+               4. Solana Network - Detailed analysis of Solana's environmental metrics
+               5. Conclusion
+               
+               Return the response in this JSON format:
+               {
+                   "summary": "Executive summary text",
+                   "sections": [
+                       {
+                           "title": "Ethereum Network",
+                           "content": "Detailed analysis of Ethereum...",
+                           "key_metrics": ["Energy usage: X TWh", "CO2 emissions: Y tons"],
+                           "recommendations": ["Recommendation 1", "Recommendation 2"]
+                       }
+                   ],
+                   "conclusion": "Conclusion text"
+               }`;
+
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [
                 {
                     role: "system",
-                    content: `Generate a comprehensive sustainability report based on the blockchain metrics provided.
-                    The report must include these specific sections:
-                    1. Executive Summary
-                    2. Ethereum Network - Detailed analysis of Ethereum's environmental metrics
-                    3. Bitcoin Network - Detailed analysis of Bitcoin's environmental metrics
-                    4. Solana Network - Detailed analysis of Solana's environmental metrics
-                    5. Conclusion
-                    
-                    Return the response in this JSON format:
-                    {
-                        "summary": "Executive summary text",
-                        "sections": [
-                            {
-                                "title": "Ethereum Network",
-                                "content": "Detailed analysis of Ethereum...",
-                                "key_metrics": ["Energy usage: X TWh", "CO2 emissions: Y tons"],
-                                "recommendations": ["Recommendation 1", "Recommendation 2"]
-                            },
-                            // Similar structure for Bitcoin and Solana sections
-                        ],
-                        "conclusion": "Conclusion text"
-                    }`
+                    content: systemPrompt
                 },
                 {
                     role: "user",
@@ -143,20 +197,69 @@ export async function generateSustainabilityReport(metrics: BlockchainMetrics[])
         }
 
         const parsed = JSON.parse(response.choices[0].message.content);
-        return parsed || getDefaultReport(metrics);
+        return parsed || getDefaultReport(metrics, locale);
 
     } catch (error) {
         console.error('Error generating sustainability report:', error);
-        return getDefaultReport(metrics);
+        return getDefaultReport(metrics, locale);
     }
 }
 
-function getDefaultReport(metrics: BlockchainMetrics[]) {
+function getDefaultReport(metrics: BlockchainMetrics[], locale: string = 'en') {
     const ethereum = metrics.find(m => m.network === 'ethereum');
     const bitcoin = metrics.find(m => m.network === 'bitcoin');
     const solana = metrics.find(m => m.network === 'solana');
 
-    return {
+    return locale === 'uk' ? {
+        summary: "Цей звіт про сталий розвиток надає аналіз впливу на довкілля блокчейн-мереж Ethereum, Bitcoin та Solana за 24-годинний період. Звіт включає метрики щодо використання енергії, викидів CO2, використання води та генерації електронних відходів.",
+        sections: [
+            {
+                title: "Мережа Ethereum",
+                content: `Перехід Ethereum на Proof of Stake значно зменшив його вплив на довкілля. Поточні метрики показують річне споживання енергії ${ethereum?.energyUsageKwh.toFixed(2)} ТВт·год, що призводить до ${ethereum?.emissionsKgCo2.toFixed(2)} тонн викидів CO2. Використання води для систем охолодження оцінюється в ${ethereum?.waterUsageLiters.toFixed(2)} мільярдів літрів на рік, а генерація електронних відходів становить ${ethereum?.eWasteKg.toFixed(2)} тонн на рік.`,
+                key_metrics: [
+                    `Використання енергії: ${ethereum?.energyUsageKwh.toFixed(2)} ТВт·год/рік`,
+                    `Викиди CO2: ${ethereum?.emissionsKgCo2.toFixed(2)} тонн/рік`,
+                    `Використання води: ${ethereum?.waterUsageLiters.toFixed(2)} млрд л/рік`,
+                    `Електронні відходи: ${ethereum?.eWasteKg.toFixed(2)} тонн/рік`
+                ],
+                recommendations: [
+                    "Продовжити оптимізацію механізму консенсусу Proof of Stake",
+                    "Впровадити більш енергоефективне обладнання для валідаторів",
+                    "Дослідити використання відновлюваних джерел енергії для вузлів валідаторів"
+                ]
+            },
+            {
+                title: "Мережа Bitcoin",
+                content: `Механізм консенсусу Bitcoin Proof of Work продовжує вимагати значних обчислювальних ресурсів. Мережа наразі споживає ${bitcoin?.energyUsageKwh.toFixed(2)} ТВт·год щорічно, генеруючи ${bitcoin?.emissionsKgCo2.toFixed(2)} тонн CO2. Споживання води для майнінгових операцій досягає ${bitcoin?.waterUsageLiters.toFixed(2)} мільярдів літрів на рік, тоді як електронні відходи від майнінгового обладнання становлять ${bitcoin?.eWasteKg.toFixed(2)} тонн щорічно.`,
+                key_metrics: [
+                    `Використання енергії: ${bitcoin?.energyUsageKwh.toFixed(2)} ТВт·год/рік`,
+                    `Викиди CO2: ${bitcoin?.emissionsKgCo2.toFixed(2)} тонн/рік`,
+                    `Використання води: ${bitcoin?.waterUsageLiters.toFixed(2)} млрд л/рік`,
+                    `Електронні відходи: ${bitcoin?.eWasteKg.toFixed(2)} тонн/рік`
+                ],
+                recommendations: [
+                    "Збільшити використання відновлюваних джерел енергії",
+                    "Покращити ефективність майнінгового обладнання",
+                    "Впровадити кращі системи охолодження для зменшення використання води"
+                ]
+            },
+            {
+                title: "Мережа Solana",
+                content: `Гібридний механізм Proof of Stake та Proof of History Solana демонструє покращену ефективність. Мережа використовує ${solana?.energyUsageKwh.toFixed(2)} ТВт·год енергії щорічно, виробляючи ${solana?.emissionsKgCo2.toFixed(2)} тонн CO2. Споживання води оцінюється в ${solana?.waterUsageLiters.toFixed(2)} мільярдів літрів на рік, а генерація електронних відходів становить ${solana?.eWasteKg.toFixed(2)} тонн щорічно.`,
+                key_metrics: [
+                    `Використання енергії: ${solana?.energyUsageKwh.toFixed(2)} ТВт·год/рік`,
+                    `Викиди CO2: ${solana?.emissionsKgCo2.toFixed(2)} тонн/рік`,
+                    `Використання води: ${solana?.waterUsageLiters.toFixed(2)} млрд л/рік`,
+                    `Електронні відходи: ${solana?.eWasteKg.toFixed(2)} тонн/рік`
+                ],
+                recommendations: [
+                    "Оптимізувати розподіл вузлів валідаторів",
+                    "Впровадити вимоги до енергоефективного обладнання",
+                    "Розробити стратегії збереження води для систем охолодження"
+                ]
+            }
+        ]
+    } : {
         summary: "This sustainability report provides an analysis of the environmental impact of the Ethereum, Bitcoin, and Solana blockchain networks over a 24-hour timeframe. The report includes metrics related to energy usage, CO2 emissions, water usage, and e-waste generation.",
         sections: [
             {
@@ -204,25 +307,34 @@ function getDefaultReport(metrics: BlockchainMetrics[]) {
                     "Develop water conservation strategies for cooling systems"
                 ]
             }
-        ],
-        conclusion: "The analysis reveals that the Ethereum network has the highest energy usage, CO2 emissions, water usage, and e-waste generation among the three blockchain networks. Solana network, while having the highest water usage, has relatively lower energy usage and emissions compared to Ethereum. Bitcoin network falls in between Ethereum and Solana in terms of environmental impact. It is recommended for all networks to explore more sustainable practices to reduce their carbon footprint and overall environmental impact."
+        ]
     };
 }
 
-export async function getOptimizationSuggestions(metrics: any) {
+export async function getOptimizationSuggestions(metrics: any, locale: string = 'en') {
     try {
+        const systemPrompt = locale === 'uk'
+            ? `Ви ШІ-експерт зі сталості блокчейну. Проаналізуйте надані метрики та створіть конкретні пропозиції щодо оптимізації. 
+               Поверніть масив пропозицій у форматі JSON, де кожна пропозиція має:
+               - title: Короткий, чіткий заголовок
+               - description: Детальне пояснення
+               - impact: "high", "medium", або "low"
+               - estimatedSavings: Оцінка екологічної економії
+               Відформатуйте відповідь як валідний JSON, який можна розпарсити.`
+            : `You are an AI expert in blockchain sustainability. Analyze the provided metrics and generate specific optimization suggestions. 
+               Return a JSON array of suggestions, where each suggestion has:
+               - title: A brief, clear title
+               - description: Detailed explanation
+               - impact: "high", "medium", or "low"
+               - estimatedSavings: Estimated environmental savings
+               Format the response as valid JSON that can be parsed.`;
+
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [
                 {
                     role: "system",
-                    content: `You are an AI expert in blockchain sustainability. Analyze the provided metrics and generate specific optimization suggestions. 
-                    Return a JSON array of suggestions, where each suggestion has:
-                    - title: A brief, clear title
-                    - description: Detailed explanation
-                    - impact: "high", "medium", or "low"
-                    - estimatedSavings: Estimated environmental savings
-                    Format the response as valid JSON that can be parsed.`
+                    content: systemPrompt
                 },
                 {
                     role: "user",
@@ -235,35 +347,54 @@ export async function getOptimizationSuggestions(metrics: any) {
         const content = response.choices[0]?.message?.content;
         if (!content) {
             console.error('No content in OpenAI response');
-            return getDefaultSuggestions();
+            return getDefaultSuggestions(locale);
         }
 
         return JSON.parse(content);
     } catch (error) {
         console.error('Error getting optimization suggestions:', error);
-        return getDefaultSuggestions();
+        return getDefaultSuggestions(locale);
     }
 }
 
-function getDefaultSuggestions() {
-    return [
+function getDefaultSuggestions(locale: string = 'en') {
+    return locale === 'uk' ? [
         {
-            title: "Implement Energy-Efficient Mining",
-            description: "Transition to more energy-efficient mining hardware and optimize mining operations.",
+            title: "Перехід на Відновлювані Джерела Енергії",
+            description: "Впровадження сонячної та вітрової енергії для майнінгових операцій може значно зменшити вуглецевий слід.",
             impact: "high",
-            estimatedSavings: "30-40% reduction in energy consumption"
+            estimatedSavings: "40-60% зменшення викидів CO2"
         },
         {
-            title: "Utilize Renewable Energy Sources",
-            description: "Switch to renewable energy sources for mining operations to reduce carbon footprint.",
-            impact: "high",
-            estimatedSavings: "Up to 70% reduction in carbon emissions"
-        },
-        {
-            title: "Optimize Network Infrastructure",
-            description: "Improve network topology and reduce redundant nodes to minimize energy waste.",
+            title: "Оптимізація Систем Охолодження",
+            description: "Впровадження ефективніших систем охолодження може значно зменшити споживання води та енергії.",
             impact: "medium",
-            estimatedSavings: "15-20% reduction in network energy usage"
+            estimatedSavings: "25-30% економії води"
+        },
+        {
+            title: "Програма Утилізації Обладнання",
+            description: "Створення програми переробки старого майнінгового обладнання для зменшення електронних відходів.",
+            impact: "medium",
+            estimatedSavings: "20-25% зменшення е-відходів"
+        }
+    ] : [
+        {
+            title: "Transition to Renewable Energy",
+            description: "Implementing solar and wind power for mining operations can significantly reduce carbon footprint.",
+            impact: "high",
+            estimatedSavings: "40-60% reduction in CO2 emissions"
+        },
+        {
+            title: "Cooling System Optimization",
+            description: "Implementing more efficient cooling systems can significantly reduce water and energy consumption.",
+            impact: "medium",
+            estimatedSavings: "25-30% water savings"
+        },
+        {
+            title: "Hardware Recycling Program",
+            description: "Establishing a recycling program for old mining equipment to reduce e-waste.",
+            impact: "medium",
+            estimatedSavings: "20-25% reduction in e-waste"
         }
     ];
 } 

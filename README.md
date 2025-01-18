@@ -4,6 +4,8 @@ An AI-powered dashboard for monitoring and analyzing the environmental impact of
 
 🌐 **[Live Demo](https://green-blockchain-monitor.vercel.app/)**
 
+🗣️ **Languages**: English (en) | Українська (uk)
+
 ## Overview
 
 Green Blockchain Monitor provides real-time analysis and insights into the environmental impact of major blockchain networks (Ethereum, Bitcoin, and Solana), helping users understand and optimize their blockchain sustainability.
@@ -58,6 +60,7 @@ Real-time monitoring of key environmental metrics:
 - **AI Integration**: OpenAI GPT-3.5
 - **Data Visualization**: Chart.js
 - **Deployment**: Vercel
+- **i18n**: next-intl for internationalization
 
 ## Getting Started
 
@@ -75,6 +78,17 @@ Real-time monitoring of key environmental metrics:
    ```bash
    npm run dev
    ```
+
+## Language Support
+
+The application supports the following languages:
+- 🇬🇧 English (en)
+- 🇺🇦 Ukrainian (uk)
+
+To add or modify translations:
+1. Navigate to the `messages` directory
+2. Edit the corresponding language file (en.json or uk.json)
+3. Add new translations following the existing format
 
 ## Contributing
 

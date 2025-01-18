@@ -4,15 +4,16 @@ import { fetchBlockchainData } from '@/lib/blockchain-api';
 
 export async function GET(request: Request) {
     try {
-        // Get timeframe from query params (default to 24h)
+        // Get timeframe and locale from query params
         const { searchParams } = new URL(request.url);
         const timeframe = searchParams.get('timeframe') || '24h';
+        const locale = searchParams.get('locale') || 'en';
 
         // Fetch latest blockchain metrics
         const blockchainData = await fetchBlockchainData();
         
-        // Generate sustainability report using OpenAI
-        const report = await generateSustainabilityReport(blockchainData);
+        // Generate sustainability report using OpenAI with locale
+        const report = await generateSustainabilityReport(blockchainData, locale);
 
         // Return the combined response
         return NextResponse.json({

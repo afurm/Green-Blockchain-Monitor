@@ -1,0 +1,194 @@
+{
+  "title": "Green Blockchain Monitor",
+  "subtitle": "Monitor and analyze blockchain environmental impact",
+  "header": {
+    "title": "Green Blockchain",
+    "subtitle": "Monitor"
+  },
+  "mainAction": {
+    "button": "Generate Environmental Impact Analysis",
+    "loading": "Generating Analysis...",
+    "description": "Click to generate a comprehensive analysis of blockchain networks' environmental impact, including real-time metrics, sustainability report, and optimization suggestions."
+  },
+  "environmentalImpact": {
+    "title": "Environmental Impact Overview",
+    "energyUsage": {
+      "title": "Energy Usage",
+      "value": "≈ 134 TWh",
+      "description": "Total annual energy consumption",
+      "ethereum": "23 TWh",
+      "bitcoin": "107 TWh",
+      "solana": "3.8 TWh"
+    },
+    "carbonFootprint": {
+      "title": "Carbon Footprint",
+      "value": "≈ 67M tons CO2",
+      "description": "Annual carbon emissions",
+      "ethereum": "11M tons",
+      "bitcoin": "54M tons",
+      "solana": "1.9M tons"
+    },
+    "waterUsage": {
+      "title": "Water Usage",
+      "value": "≈ 132B Liters",
+      "description": "Annual water consumption",
+      "ethereum": "45B liters",
+      "bitcoin": "75B liters",
+      "solana": "12B liters"
+    },
+    "eWaste": {
+      "title": "E-waste",
+      "value": "≈ 31,200 tons",
+      "description": "Annual electronic waste",
+      "ethereum": "8,000 tons",
+      "bitcoin": "22,000 tons",
+      "solana": "1,200 tons"
+    }
+  },
+  "networks": {
+    "eth": "ETH",
+    "btc": "BTC",
+    "sol": "SOL",
+    "ethereum": "Ethereum",
+    "bitcoin": "Bitcoin",
+    "solana": "Solana",
+    "monitoring": "Live Monitoring",
+    "ethNetwork": "ETH Network",
+    "btcNetwork": "BTC Network",
+    "solNetwork": "SOL Network"
+  },
+  "charts": {
+    "title": "Network Analysis",
+    "description": "Comprehensive analysis of blockchain networks' environmental impact",
+    "energyUsage": {
+      "title": "Energy Usage Comparison",
+      "description": "Annual energy consumption in TWh",
+      "label": "Energy Usage (TWh/year)"
+    },
+    "carbonFootprint": {
+      "title": "Carbon Footprint Comparison",
+      "description": "Annual CO2 emissions in million tonnes",
+      "label": "CO2 Emissions (Mt/year)"
+    },
+    "waterUsage": {
+      "title": "Water Usage Comparison",
+      "description": "Annual water consumption in billion liters",
+      "label": "Water Usage (B L/year)"
+    },
+    "eWaste": {
+      "title": "E-Waste Generation",
+      "description": "Annual electronic waste in tonnes",
+      "label": "E-Waste (tonnes/year)"
+    },
+    "sustainability": {
+      "energyUsage": "Energy Usage (kWh)",
+      "transactions": "Transaction Count",
+      "tooltips": {
+        "energyUsage": "Energy Usage: {value} kWh",
+        "transactions": "Transactions: {value}"
+      }
+    },
+    "emissions": {
+      "historical": "Historical Emissions",
+      "predicted": "Predicted Emissions",
+      "label": "CO2 Emissions (kg)",
+      "tooltips": {
+        "emissions": "CO2 Emissions: {value} kg"
+      }
+    }
+  },
+  "optimization": {
+    "title": "Optimization Suggestions",
+    "description": "Actionable recommendations to improve blockchain sustainability.",
+    "impact": {
+      "high": "HIGH",
+      "medium": "MEDIUM",
+      "low": "LOW"
+    },
+    "savings": "Est. Savings:"
+  },
+  "report": {
+    "title": "Sustainability Report",
+    "description": "Comprehensive 24-hour analysis of blockchain environmental impact.",
+    "overview": "This sustainability report provides an analysis of key environmental metrics for the Ethereum, Bitcoin, and Solana blockchain networks.",
+    "sections": {
+      "executiveSummary": "Executive Summary",
+      "keyMetrics": "Key Metrics:",
+      "recommendations": "Recommendations:",
+      "conclusion": "Conclusion"
+    }
+  },
+  "footer": {
+    "about": {
+      "title": "About This Project",
+      "description": "An AI-powered platform monitoring and analyzing the environmental impact of blockchain networks. Committed to promoting sustainable practices in the crypto space."
+    },
+    "resources": {
+      "title": "Resources",
+      "ethereum": "Ethereum Energy Consumption",
+      "bitcoin": "Cambridge Bitcoin Electricity Consumption Index"
+    },
+    "connect": {
+      "title": "Stay Connected",
+      "description": "Stay updated with our latest insights and developments in blockchain sustainability."
+    },
+    "copyright": "© 2025 Green Blockchain Monitor. All rights reserved."
+  },
+  "simpleExplanation": {
+    "title": "Why Does This Matter? 🌍",
+    "point1": "Blockchain networks use a lot of computers working 24/7 to keep everything secure",
+    "point2": "These computers need electricity, which often comes from fossil fuels",
+    "point3": "Mining equipment gets outdated quickly, creating electronic waste",
+    "point4": "The good news: Many networks are moving to greener solutions!"
+  },
+  "analysisFeatures": {
+    "realtime": {
+      "title": "Real-time Analysis",
+      "description": "Instant insights about energy usage and emissions from blockchain networks"
+    },
+    "predictions": {
+      "title": "Future Predictions",
+      "description": "AI-powered forecasts of energy consumption and environmental impact"
+    },
+    "optimization": {
+      "title": "Optimization Tips",
+      "description": "Smart suggestions to improve blockchain sustainability"
+    }
+  },
+  "features": {
+    "realtime": {
+      "title": "Real-time Monitoring",
+      "description": "Continuous network analysis"
+    },
+    "ai": {
+      "title": "AI Analysis",
+      "description": "Smart insights & predictions"
+    },
+    "transparency": {
+      "title": "Data Transparency",
+      "description": "100% verifiable metrics"
+    }
+  },
+  "dashboard": {
+    "analysisComplete": "Analysis completed successfully",
+    "analysisError": "Failed to generate analysis",
+    "loading": "Loading analysis...",
+    "noData": "No data available"
+  },
+  "aiControls": {
+    "title": "AI Analysis Controls",
+    "analyze": "Analyze Data",
+    "analyzing": "Analyzing...",
+    "generateReport": "Generate Report",
+    "generating": "Generating...",
+    "optimize": "Get Optimization Suggestions",
+    "results": "Analysis Results",
+    "insights": "Insights",
+    "predictions": "Predictions",
+    "recommendations": "Recommendations",
+    "confidence": "Confidence",
+    "time": "Time",
+    "energy": "Energy (kWh)",
+    "emissions": "Emissions (kg CO2)"
+  }
+} 

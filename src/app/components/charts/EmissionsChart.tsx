@@ -1,6 +1,7 @@
 'use client';
 
 import { Line } from 'react-chartjs-2';
+import { useTranslations, useLocale } from 'next-intl';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,7 +10,8 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ChartOptions
 } from 'chart.js';
 
 // Register ChartJS components
@@ -40,21 +42,34 @@ interface Props {
 }
 
 export default function EmissionsChart({ historicalData, predictions }: Props) {
+  const t = useTranslations();
+  const locale = useLocale();
+
+  const formatDate = (timestamp: string) => {
+    return new Date(timestamp).toLocaleString(locale, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   const chartData = {
     labels: [
-      ...historicalData.map(d => new Date(d.timestamp).toLocaleString()),
-      ...predictions.map(d => new Date(d.timestamp).toLocaleString())
+      ...historicalData.map(d => formatDate(d.timestamp)),
+      ...predictions.map(d => formatDate(d.timestamp))
     ],
     datasets: [
       {
-        label: 'Historical Emissions',
+        label: t('charts.emissions.historical'),
         data: [...historicalData.map(d => d.emissionsKgCo2), ...Array(predictions.length).fill(null)],
         borderColor: 'rgb(239, 68, 68)',
         backgroundColor: 'rgba(239, 68, 68, 0.5)',
         borderWidth: 2,
       },
       {
-        label: 'Predicted Emissions',
+        label: t('charts.emissions.predicted'),
         data: [...Array(historicalData.length).fill(null), ...predictions.map(d => d.emissionsKgCo2)],
         borderColor: 'rgb(168, 85, 247)',
         backgroundColor: 'rgba(168, 85, 247, 0.5)',
@@ -64,11 +79,17 @@ export default function EmissionsChart({ historicalData, predictions }: Props) {
     ]
   };
 
-  const options = {
+  const options: ChartOptions<'line'> = {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const,
+        position: 'top',
+        labels: {
+          color: '#94A3B8',
+          font: {
+            size: 12
+          }
+        }
       },
       tooltip: {
         callbacks: {
@@ -78,7 +99,12 @@ export default function EmissionsChart({ historicalData, predictions }: Props) {
               label += ': ';
             }
             if (context.parsed.y !== null) {
-              label += `${context.parsed.y.toFixed(2)} kg CO2`;
+              return t('charts.emissions.tooltips.emissions', {
+                value: context.parsed.y.toLocaleString(locale, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              });
             }
             return label;
           }
@@ -87,10 +113,41 @@ export default function EmissionsChart({ historicalData, predictions }: Props) {
     },
     scales: {
       y: {
+        type: 'linear',
         beginAtZero: true,
         title: {
           display: true,
-          text: 'CO2 Emissions (kg)'
+          text: t('charts.emissions.label'),
+          color: '#94A3B8',
+          font: {
+            size: 12
+          }
+        },
+        ticks: {
+          color: '#94A3B8',
+          font: {
+            size: 11
+          },
+          callback: function(value) {
+            if (typeof value === 'number') {
+              return value.toLocaleString(locale);
+            }
+            return value;
+          }
+        },
+        grid: {
+          color: 'rgba(148, 163, 184, 0.1)'
+        }
+      },
+      x: {
+        ticks: {
+          color: '#94A3B8',
+          font: {
+            size: 11
+          }
+        },
+        grid: {
+          color: 'rgba(148, 163, 184, 0.1)'
         }
       }
     }

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useTranslations, useLocale } from 'next-intl';
 
 interface AIResponse {
     insights?: Array<{
@@ -25,13 +26,15 @@ interface AIResponse {
 }
 
 export default function AIControls() {
+    const t = useTranslations();
+    const locale = useLocale();
     const [loading, setLoading] = useState<string | null>(null);
     const [response, setResponse] = useState<AIResponse | null>(null);
 
     const handleAnalyze = async () => {
         try {
             setLoading('analyze');
-            const res = await fetch('/api/insights');
+            const res = await fetch(`/api/insights?locale=${locale}`);
             if (!res.ok) throw new Error('Failed to analyze data');
             const data = await res.json();
             setResponse(data);
@@ -47,7 +50,7 @@ export default function AIControls() {
     const handleGenerateReport = async () => {
         try {
             setLoading('report');
-            const res = await fetch('/api/report?timeframe=24h');
+            const res = await fetch(`/api/report?timeframe=24h&locale=${locale}`);
             if (!res.ok) throw new Error('Failed to generate report');
             const data = await res.json();
             setResponse({ report: data.report });
@@ -63,7 +66,7 @@ export default function AIControls() {
     const handleOptimize = async () => {
         try {
             setLoading('optimize');
-            const res = await fetch('/api/optimize');
+            const res = await fetch(`/api/optimize?locale=${locale}`);
             if (!res.ok) throw new Error('Failed to get optimization suggestions');
             const data = await res.json();
             setResponse({ recommendations: data.suggestions });
@@ -80,28 +83,28 @@ export default function AIControls() {
         <div className="space-y-6">
             {/* Control Buttons */}
             <div className="bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-lg font-semibold mb-4">AI Analysis Controls</h2>
+                <h2 className="text-lg font-semibold mb-4">{t('aiControls.title')}</h2>
                 <div className="flex flex-wrap gap-4">
                     <button
                         onClick={handleAnalyze}
                         disabled={loading === 'analyze'}
                         className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50"
                     >
-                        {loading === 'analyze' ? 'Analyzing...' : 'Analyze Data'}
+                        {loading === 'analyze' ? t('aiControls.analyzing') : t('aiControls.analyze')}
                     </button>
                     <button
                         onClick={handleGenerateReport}
                         disabled={loading === 'report'}
                         className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
                     >
-                        {loading === 'report' ? 'Generating...' : 'Generate Report'}
+                        {loading === 'report' ? t('aiControls.generating') : t('aiControls.generateReport')}
                     </button>
                     <button
                         onClick={handleOptimize}
                         disabled={loading === 'optimize'}
                         className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:opacity-50"
                     >
-                        {loading === 'optimize' ? 'Analyzing...' : 'Get Optimization Suggestions'}
+                        {loading === 'optimize' ? t('aiControls.analyzing') : t('aiControls.optimize')}
                     </button>
                 </div>
             </div>
@@ -109,12 +112,12 @@ export default function AIControls() {
             {/* Results Display */}
             {response && (
                 <div className="bg-white rounded-lg shadow-md p-6">
-                    <h2 className="text-lg font-semibold mb-4">Analysis Results</h2>
+                    <h2 className="text-lg font-semibold mb-4">{t('aiControls.results')}</h2>
                     
                     {/* Insights */}
                     {response.insights && (
                         <div className="mb-6">
-                            <h3 className="text-md font-medium mb-2">Insights</h3>
+                            <h3 className="text-md font-medium mb-2">{t('aiControls.insights')}</h3>
                             <div className="grid gap-4 md:grid-cols-2">
                                 {response.insights.map((insight, index) => (
                                     <div
@@ -127,7 +130,7 @@ export default function AIControls() {
                                     >
                                         <p className="text-sm">{insight.message}</p>
                                         <p className="text-xs text-gray-500 mt-1">
-                                            Confidence: {(insight.confidence * 100).toFixed(1)}%
+                                            {t('aiControls.confidence')}: {(insight.confidence * 100).toFixed(1)}%
                                         </p>
                                     </div>
                                 ))}
@@ -138,23 +141,23 @@ export default function AIControls() {
                     {/* Predictions */}
                     {response.predictions && (
                         <div className="mb-6">
-                            <h3 className="text-md font-medium mb-2">Predictions</h3>
+                            <h3 className="text-md font-medium mb-2">{t('aiControls.predictions')}</h3>
                             <div className="overflow-x-auto">
                                 <table className="min-w-full divide-y divide-gray-200">
                                     <thead>
                                         <tr>
-                                            <th className="px-4 py-2">Time</th>
-                                            <th className="px-4 py-2">Energy (kWh)</th>
-                                            <th className="px-4 py-2">Emissions (kg CO2)</th>
-                                            <th className="px-4 py-2">Confidence</th>
+                                            <th className="px-4 py-2">{t('aiControls.time')}</th>
+                                            <th className="px-4 py-2">{t('aiControls.energy')}</th>
+                                            <th className="px-4 py-2">{t('aiControls.emissions')}</th>
+                                            <th className="px-4 py-2">{t('aiControls.confidence')}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {response.predictions.map((pred, index) => (
                                             <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : ''}>
-                                                <td className="px-4 py-2">{new Date(pred.timestamp).toLocaleString()}</td>
-                                                <td className="px-4 py-2">{pred.energyUsageKwh.toFixed(2)}</td>
-                                                <td className="px-4 py-2">{pred.emissionsKgCo2.toFixed(2)}</td>
+                                                <td className="px-4 py-2">{new Date(pred.timestamp).toLocaleString(locale)}</td>
+                                                <td className="px-4 py-2">{pred.energyUsageKwh.toLocaleString(locale, { maximumFractionDigits: 2 })}</td>
+                                                <td className="px-4 py-2">{pred.emissionsKgCo2.toLocaleString(locale, { maximumFractionDigits: 2 })}</td>
                                                 <td className="px-4 py-2">{(pred.confidence * 100).toFixed(1)}%</td>
                                             </tr>
                                         ))}
@@ -167,7 +170,7 @@ export default function AIControls() {
                     {/* Recommendations */}
                     {response.recommendations && (
                         <div className="mb-6">
-                            <h3 className="text-md font-medium mb-2">Optimization Suggestions</h3>
+                            <h3 className="text-md font-medium mb-2">{t('aiControls.recommendations')}</h3>
                             <div className="space-y-4">
                                 {response.recommendations.map((rec, index) => (
                                     <div key={index} className="border-l-4 border-green-500 pl-4 py-2">
@@ -180,10 +183,10 @@ export default function AIControls() {
                                                   rec.impact === 'medium' ? 'bg-yellow-100 text-yellow-800' :
                                                   'bg-green-100 text-green-800'}
                                             `}>
-                                                {rec.impact.toUpperCase()} Impact
+                                                {t(`optimization.impact.${rec.impact}`)}
                                             </span>
                                             <span className="ml-4 text-gray-500">
-                                                Est. Savings: {rec.estimatedSavings}
+                                                {t('optimization.savings')} {rec.estimatedSavings}
                                             </span>
                                         </div>
                                     </div>
@@ -195,7 +198,7 @@ export default function AIControls() {
                     {/* Report */}
                     {response.report && (
                         <div className="mb-6">
-                            <h3 className="text-md font-medium mb-2">Sustainability Report</h3>
+                            <h3 className="text-md font-medium mb-2">{t('report.title')}</h3>
                             <div className="prose max-w-none">
                                 {response.report.split('\n').map((paragraph, index) => (
                                     <p key={index} className="mb-4">{paragraph}</p>
