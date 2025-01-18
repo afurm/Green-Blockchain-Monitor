@@ -1,153 +1,111 @@
 # Green Blockchain Monitor
 
-An AI-driven monitoring system for analyzing and optimizing blockchain sustainability metrics.
+An AI-powered dashboard for monitoring and analyzing the environmental impact of blockchain networks. This application provides real-time insights into the sustainability metrics of Ethereum, Bitcoin, and Solana networks.
+
+![Green Blockchain Monitor](public/favicon.svg)
 
 ## Features
 
-- Real-time monitoring of blockchain energy consumption and carbon emissions
-- AI-powered sustainability predictions and trend analysis
-- Recommendations for greener blockchain alternatives
-- Dynamic optimization suggestions for improving sustainability
-- Beautiful and modern UI built with Next.js and TailwindCSS
+- **Real-time Environmental Metrics**
+  - Energy consumption analysis
+  - Carbon footprint tracking
+  - Water usage monitoring
+  - E-waste generation statistics
+
+- **Interactive Visualizations**
+  - Comparative bar charts
+  - Network-specific metrics
+  - Historical trend analysis
+  - Environmental impact breakdowns
+
+- **AI-Powered Analysis**
+  - Sustainability insights generation
+  - Predictive environmental trends
+  - Network-specific recommendations
+  - Comprehensive sustainability reports
+
+- **Multi-Network Support**
+  - Ethereum (ETH)
+  - Bitcoin (BTC)
+  - Solana (SOL)
 
 ## Tech Stack
 
-- **Frontend**: Next.js, React, TypeScript, TailwindCSS
-- **Backend**: Next.js API routes, Node.js
-- **Database**: MySQL
-- **Machine Learning**: Python, scikit-learn, pandas
-- **Data Collection**: Blockchain APIs (Etherscan, etc.)
+- **Frontend**
+  - Next.js 14 (React)
+  - TypeScript
+  - Tailwind CSS
+  - Chart.js for data visualization
 
-## Prerequisites
+- **APIs and Services**
+  - OpenAI API for analysis
+  - Etherscan API for Ethereum data
+  - Blockchain.info API for Bitcoin data
+  - Public RPC endpoints for network stats
 
-- Node.js (v18 or higher)
-- Python (v3.11 or higher)
-- MySQL (v8.0 or higher)
-- npm or yarn package manager
+- **Development Tools**
+  - ESLint for code quality
+  - Prettier for code formatting
+  - React Hot Toast for notifications
 
-## Installation
+## Getting Started
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/green-blockchain-monitor.git
-cd green-blockchain-monitor
-```
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/green-blockchain-monitor.git
+   cd green-blockchain-monitor
+   ```
 
-2. Install Node.js dependencies:
-```bash
-npm install
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-3. Set up Python virtual environment and install dependencies:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: .\venv\Scripts\activate
-pip install -r requirements.txt
-```
+3. **Set up environment variables**
+   Create a `.env` file in the root directory with:
+   ```
+   OPENAI_API_KEY=your_openai_api_key
+   ETHERSCAN_API_KEY=your_etherscan_api_key
+   ```
 
-4. Create a `.env` file in the root directory:
-```env
-# Database Configuration
-DATABASE_URL="mysql://root:@localhost:3306/green_blockchain"
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-# Application URL
-NEXT_PUBLIC_APP_URL="http://localhost:3000"
+5. **Open the application**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-# API Keys (required for data collection)
-ETHERSCAN_API_KEY="your_etherscan_api_key"
-```
+## Environmental Impact Analysis
 
-5. Initialize the database:
-```bash
-npx prisma db push
-```
+The application analyzes several key metrics:
 
-## Running the Application
+- **Energy Usage**: Measures the total energy consumption in TWh/year
+- **Carbon Footprint**: Calculates CO2 emissions in million tons/year
+- **Water Consumption**: Tracks water usage in billion liters/year
+- **E-waste Generation**: Monitors electronic waste in tons/year
 
-1. Start the development server:
-```bash
-npm run dev
-```
+## AI-Powered Features
 
-2. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## Data Collection and ML Pipeline
-
-### 1. Collecting Blockchain Data
-
-Run the data collection script to fetch blockchain metrics:
-```bash
-npm run collect-data
-```
-
-This script should be run periodically (recommended: once every 24 hours) to gather fresh data.
-
-### 2. Training ML Models
-
-Once you have collected enough data points (minimum 10), train the ML models:
-```bash
-# Activate Python virtual environment first
-source venv/bin/activate  # On Windows: .\venv\Scripts\activate
-python src/ml/train.py
-```
-
-The training script will:
-- Load historical data from the database
-- Prepare features and targets
-- Train models for energy usage and emissions prediction
-- Save the trained models and metrics
-
-### 3. Monitoring Model Performance
-
-Check the training metrics in the `models` directory:
-- Model files: `models/{model_name}_{timestamp}.joblib`
-- Metrics files: `models/{model_name}_{timestamp}_metrics.json`
-
-## API Documentation
-
-### Endpoints
-
-1. GET `/api/metrics`
-   - Returns current blockchain metrics
-   - Query parameters:
-     - `blockchain`: Blockchain name (e.g., "ethereum")
-     - `timeframe`: Data timeframe (e.g., "24h", "7d", "30d")
-
-2. GET `/api/predictions`
-   - Returns sustainability predictions
-   - Query parameters:
-     - `blockchain`: Blockchain name
-     - `horizon`: Prediction horizon in hours
-
-3. GET `/api/recommendations`
-   - Returns sustainability recommendations
-   - Query parameters:
-     - `current_blockchain`: Current blockchain name
-     - `criteria`: Optimization criteria (e.g., "energy", "emissions", "both")
-
-## Development Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build production application
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run collect-data` - Run data collection
-- `npm run test` - Run tests
+- **Real-time Analysis**: Processes current blockchain metrics to provide immediate insights
+- **Predictive Modeling**: Projects future environmental impact trends
+- **Optimization Suggestions**: Provides actionable recommendations for improving sustainability
+- **Sustainability Reports**: Generates comprehensive environmental impact assessments
 
 ## Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
 
-- Etherscan API for blockchain data
-- Next.js team for the amazing framework
-- All contributors who help make this project better 
+- Ethereum Energy Consumption Index
+- Cambridge Bitcoin Electricity Consumption Index
+- Blockchain sustainability research community
+
+## Contact
+
+For questions or feedback, please open an issue in the repository. 
