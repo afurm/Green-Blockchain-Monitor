@@ -210,104 +210,93 @@ function getDefaultReport(metrics: BlockchainMetrics[], locale: string = 'en') {
     const bitcoin = metrics.find(m => m.network === 'bitcoin');
     const solana = metrics.find(m => m.network === 'solana');
 
-    return locale === 'uk' ? {
-        summary: "Цей звіт про сталий розвиток надає аналіз впливу на довкілля блокчейн-мереж Ethereum, Bitcoin та Solana за 24-годинний період. Звіт включає метрики щодо використання енергії, викидів CO2, використання води та генерації електронних відходів.",
+    return {
+        summary: locale === 'uk' 
+            ? "Цей звіт про сталий розвиток надає аналіз впливу на довкілля блокчейн-мереж Ethereum, Bitcoin та Solana за 24-годинний період. Звіт включає метрики щодо використання енергії, викидів CO2, використання води та генерації електронних відходів."
+            : "This sustainability report provides an analysis of the environmental impact of the Ethereum, Bitcoin, and Solana blockchain networks over a 24-hour timeframe. The report includes metrics related to energy usage, CO2 emissions, water usage, and e-waste generation.",
         sections: [
             {
-                title: "Мережа Ethereum",
-                content: `Перехід Ethereum на Proof of Stake значно зменшив його вплив на довкілля. Поточні метрики показують річне споживання енергії ${ethereum?.energyUsageKwh.toFixed(2)} ТВт·год, що призводить до ${ethereum?.emissionsKgCo2.toFixed(2)} тонн викидів CO2. Використання води для систем охолодження оцінюється в ${ethereum?.waterUsageLiters.toFixed(2)} мільярдів літрів на рік, а генерація електронних відходів становить ${ethereum?.eWasteKg.toFixed(2)} тонн на рік.`,
-                key_metrics: [
+                title: locale === 'uk' ? "Мережа Ethereum" : "Ethereum Network",
+                content: locale === 'uk'
+                    ? `Перехід Ethereum на Proof of Stake значно зменшив його вплив на довкілля. Поточні метрики показують річне споживання енергії ${ethereum?.energyUsageKwh.toFixed(2)} ТВт·год, що призводить до ${ethereum?.emissionsKgCo2.toFixed(2)} тонн викидів CO2. Використання води для систем охолодження оцінюється в ${ethereum?.waterUsageLiters.toFixed(2)} мільярдів літрів на рік, а генерація електронних відходів становить ${ethereum?.eWasteKg.toFixed(2)} тонн на рік.`
+                    : `Ethereum's transition to Proof of Stake has significantly reduced its environmental footprint. Current metrics show annual energy consumption of ${ethereum?.energyUsageKwh.toFixed(2)} TWh, resulting in ${ethereum?.emissionsKgCo2.toFixed(2)} tons of CO2 emissions. The network's water usage for cooling systems is estimated at ${ethereum?.waterUsageLiters.toFixed(2)} billion liters annually, with e-waste generation at ${ethereum?.eWasteKg.toFixed(2)} tons per year.`,
+                key_metrics: locale === 'uk' ? [
                     `Використання енергії: ${ethereum?.energyUsageKwh.toFixed(2)} ТВт·год/рік`,
                     `Викиди CO2: ${ethereum?.emissionsKgCo2.toFixed(2)} тонн/рік`,
                     `Використання води: ${ethereum?.waterUsageLiters.toFixed(2)} млрд л/рік`,
                     `Електронні відходи: ${ethereum?.eWasteKg.toFixed(2)} тонн/рік`
-                ],
-                recommendations: [
-                    "Продовжити оптимізацію механізму консенсусу Proof of Stake",
-                    "Впровадити більш енергоефективне обладнання для валідаторів",
-                    "Дослідити використання відновлюваних джерел енергії для вузлів валідаторів"
-                ]
-            },
-            {
-                title: "Мережа Bitcoin",
-                content: `Механізм консенсусу Bitcoin Proof of Work продовжує вимагати значних обчислювальних ресурсів. Мережа наразі споживає ${bitcoin?.energyUsageKwh.toFixed(2)} ТВт·год щорічно, генеруючи ${bitcoin?.emissionsKgCo2.toFixed(2)} тонн CO2. Споживання води для майнінгових операцій досягає ${bitcoin?.waterUsageLiters.toFixed(2)} мільярдів літрів на рік, тоді як електронні відходи від майнінгового обладнання становлять ${bitcoin?.eWasteKg.toFixed(2)} тонн щорічно.`,
-                key_metrics: [
-                    `Використання енергії: ${bitcoin?.energyUsageKwh.toFixed(2)} ТВт·год/рік`,
-                    `Викиди CO2: ${bitcoin?.emissionsKgCo2.toFixed(2)} тонн/рік`,
-                    `Використання води: ${bitcoin?.waterUsageLiters.toFixed(2)} млрд л/рік`,
-                    `Електронні відходи: ${bitcoin?.eWasteKg.toFixed(2)} тонн/рік`
-                ],
-                recommendations: [
-                    "Збільшити використання відновлюваних джерел енергії",
-                    "Покращити ефективність майнінгового обладнання",
-                    "Впровадити кращі системи охолодження для зменшення використання води"
-                ]
-            },
-            {
-                title: "Мережа Solana",
-                content: `Гібридний механізм Proof of Stake та Proof of History Solana демонструє покращену ефективність. Мережа використовує ${solana?.energyUsageKwh.toFixed(2)} ТВт·год енергії щорічно, виробляючи ${solana?.emissionsKgCo2.toFixed(2)} тонн CO2. Споживання води оцінюється в ${solana?.waterUsageLiters.toFixed(2)} мільярдів літрів на рік, а генерація електронних відходів становить ${solana?.eWasteKg.toFixed(2)} тонн щорічно.`,
-                key_metrics: [
-                    `Використання енергії: ${solana?.energyUsageKwh.toFixed(2)} ТВт·год/рік`,
-                    `Викиди CO2: ${solana?.emissionsKgCo2.toFixed(2)} тонн/рік`,
-                    `Використання води: ${solana?.waterUsageLiters.toFixed(2)} млрд л/рік`,
-                    `Електронні відходи: ${solana?.eWasteKg.toFixed(2)} тонн/рік`
-                ],
-                recommendations: [
-                    "Оптимізувати розподіл вузлів валідаторів",
-                    "Впровадити вимоги до енергоефективного обладнання",
-                    "Розробити стратегії збереження води для систем охолодження"
-                ]
-            }
-        ]
-    } : {
-        summary: "This sustainability report provides an analysis of the environmental impact of the Ethereum, Bitcoin, and Solana blockchain networks over a 24-hour timeframe. The report includes metrics related to energy usage, CO2 emissions, water usage, and e-waste generation.",
-        sections: [
-            {
-                title: "Ethereum Network",
-                content: `Ethereum's transition to Proof of Stake has significantly reduced its environmental footprint. Current metrics show annual energy consumption of ${ethereum?.energyUsageKwh.toFixed(2)} TWh, resulting in ${ethereum?.emissionsKgCo2.toFixed(2)} tons of CO2 emissions. The network's water usage for cooling systems is estimated at ${ethereum?.waterUsageLiters.toFixed(2)} billion liters annually, with e-waste generation at ${ethereum?.eWasteKg.toFixed(2)} tons per year.`,
-                key_metrics: [
+                ] : [
                     `Energy Usage: ${ethereum?.energyUsageKwh.toFixed(2)} TWh/year`,
                     `CO2 Emissions: ${ethereum?.emissionsKgCo2.toFixed(2)} tons/year`,
                     `Water Usage: ${ethereum?.waterUsageLiters.toFixed(2)} billion liters/year`,
                     `E-waste: ${ethereum?.eWasteKg.toFixed(2)} tons/year`
                 ],
-                recommendations: [
+                recommendations: locale === 'uk' ? [
+                    "Продовжити оптимізацію механізму консенсусу Proof of Stake",
+                    "Впровадити більш енергоефективне обладнання для валідаторів",
+                    "Дослідити використання відновлюваних джерел енергії для вузлів валідаторів"
+                ] : [
                     "Continue optimizing the Proof of Stake consensus mechanism",
                     "Implement more energy-efficient validator hardware",
                     "Explore renewable energy sources for validator nodes"
                 ]
             },
             {
-                title: "Bitcoin Network",
-                content: `Bitcoin's Proof of Work consensus mechanism continues to require significant computational resources. The network currently consumes ${bitcoin?.energyUsageKwh.toFixed(2)} TWh annually, generating ${bitcoin?.emissionsKgCo2.toFixed(2)} tons of CO2. Water consumption for mining operations reaches ${bitcoin?.waterUsageLiters.toFixed(2)} billion liters per year, while e-waste from mining hardware amounts to ${bitcoin?.eWasteKg.toFixed(2)} tons annually.`,
-                key_metrics: [
+                title: locale === 'uk' ? "Мережа Bitcoin" : "Bitcoin Network",
+                content: locale === 'uk'
+                    ? `Механізм консенсусу Bitcoin Proof of Work продовжує вимагати значних обчислювальних ресурсів. Мережа наразі споживає ${bitcoin?.energyUsageKwh.toFixed(2)} ТВт·год щорічно, генеруючи ${bitcoin?.emissionsKgCo2.toFixed(2)} тонн CO2. Споживання води для майнінгових операцій досягає ${bitcoin?.waterUsageLiters.toFixed(2)} мільярдів літрів на рік, тоді як електронні відходи від майнінгового обладнання становлять ${bitcoin?.eWasteKg.toFixed(2)} тонн щорічно.`
+                    : `Bitcoin's Proof of Work consensus mechanism continues to require significant computational resources. The network currently consumes ${bitcoin?.energyUsageKwh.toFixed(2)} TWh annually, generating ${bitcoin?.emissionsKgCo2.toFixed(2)} tons of CO2. Water consumption for mining operations reaches ${bitcoin?.waterUsageLiters.toFixed(2)} billion liters per year, while e-waste from mining hardware amounts to ${bitcoin?.eWasteKg.toFixed(2)} tons annually.`,
+                key_metrics: locale === 'uk' ? [
+                    `Використання енергії: ${bitcoin?.energyUsageKwh.toFixed(2)} ТВт·год/рік`,
+                    `Викиди CO2: ${bitcoin?.emissionsKgCo2.toFixed(2)} тонн/рік`,
+                    `Використання води: ${bitcoin?.waterUsageLiters.toFixed(2)} млрд л/рік`,
+                    `Електронні відходи: ${bitcoin?.eWasteKg.toFixed(2)} тонн/рік`
+                ] : [
                     `Energy Usage: ${bitcoin?.energyUsageKwh.toFixed(2)} TWh/year`,
                     `CO2 Emissions: ${bitcoin?.emissionsKgCo2.toFixed(2)} tons/year`,
                     `Water Usage: ${bitcoin?.waterUsageLiters.toFixed(2)} billion liters/year`,
                     `E-waste: ${bitcoin?.eWasteKg.toFixed(2)} tons/year`
                 ],
-                recommendations: [
+                recommendations: locale === 'uk' ? [
+                    "Збільшити використання відновлюваних джерел енергії",
+                    "Покращити ефективність майнінгового обладнання",
+                    "Впровадити кращі системи охолодження для зменшення використання води"
+                ] : [
                     "Increase adoption of renewable energy sources",
                     "Improve mining hardware efficiency",
                     "Implement better cooling systems to reduce water usage"
                 ]
             },
             {
-                title: "Solana Network",
-                content: `Solana's hybrid Proof of Stake and Proof of History mechanism demonstrates improved efficiency. The network uses ${solana?.energyUsageKwh.toFixed(2)} TWh of energy annually, producing ${solana?.emissionsKgCo2.toFixed(2)} tons of CO2. Water consumption is estimated at ${solana?.waterUsageLiters.toFixed(2)} billion liters per year, with e-waste generation at ${solana?.eWasteKg.toFixed(2)} tons annually.`,
-                key_metrics: [
+                title: locale === 'uk' ? "Мережа Solana" : "Solana Network",
+                content: locale === 'uk'
+                    ? `Гібридний механізм Proof of Stake та Proof of History Solana демонструє покращену ефективність. Мережа використовує ${solana?.energyUsageKwh.toFixed(2)} ТВт·год енергії щорічно, виробляючи ${solana?.emissionsKgCo2.toFixed(2)} тонн CO2. Споживання води оцінюється в ${solana?.waterUsageLiters.toFixed(2)} мільярдів літрів на рік, а генерація електронних відходів становить ${solana?.eWasteKg.toFixed(2)} тонн щорічно.`
+                    : `Solana's hybrid Proof of Stake and Proof of History mechanism demonstrates improved efficiency. The network uses ${solana?.energyUsageKwh.toFixed(2)} TWh of energy annually, producing ${solana?.emissionsKgCo2.toFixed(2)} tons of CO2. Water consumption is estimated at ${solana?.waterUsageLiters.toFixed(2)} billion liters per year, with e-waste generation at ${solana?.eWasteKg.toFixed(2)} tons annually.`,
+                key_metrics: locale === 'uk' ? [
+                    `Використання енергії: ${solana?.energyUsageKwh.toFixed(2)} ТВт·год/рік`,
+                    `Викиди CO2: ${solana?.emissionsKgCo2.toFixed(2)} тонн/рік`,
+                    `Використання води: ${solana?.waterUsageLiters.toFixed(2)} млрд л/рік`,
+                    `Електронні відходи: ${solana?.eWasteKg.toFixed(2)} тонн/рік`
+                ] : [
                     `Energy Usage: ${solana?.energyUsageKwh.toFixed(2)} TWh/year`,
                     `CO2 Emissions: ${solana?.emissionsKgCo2.toFixed(2)} tons/year`,
                     `Water Usage: ${solana?.waterUsageLiters.toFixed(2)} billion liters/year`,
                     `E-waste: ${solana?.eWasteKg.toFixed(2)} tons/year`
                 ],
-                recommendations: [
+                recommendations: locale === 'uk' ? [
+                    "Оптимізувати розподіл вузлів валідаторів",
+                    "Впровадити вимоги до енергоефективного обладнання",
+                    "Розробити стратегії збереження води для систем охолодження"
+                ] : [
                     "Optimize validator node distribution",
                     "Implement energy-efficient hardware requirements",
                     "Develop water conservation strategies for cooling systems"
                 ]
             }
-        ]
+        ],
+        conclusion: locale === 'uk'
+            ? "Загалом, спостерігається позитивна тенденція до зменшення впливу на довкілля завдяки переходу на більш енергоефективні механізми консенсусу та впровадженню екологічних практик. Проте все ще існує значний простір для покращення, особливо у сфері використання відновлюваної енергії та зменшення електронних відходів."
+            : "Overall, there is a positive trend towards reducing environmental impact through the adoption of more energy-efficient consensus mechanisms and sustainable practices. However, there remains significant room for improvement, particularly in renewable energy adoption and e-waste reduction."
     };
 }
 

@@ -6,11 +6,9 @@ import { notFound, redirect } from 'next/navigation';
 import { Toaster } from 'react-hot-toast';
 import Navigation from '@/app/components/Navigation';
 import { headers } from 'next/headers';
+import { SUPPORTED_LOCALES, type SupportedLocale } from '@/i18n';
 
 const inter = Inter({ subsets: ['latin'] });
-
-const SUPPORTED_LOCALES = ['en', 'uk'] as const;
-type SupportedLocale = typeof SUPPORTED_LOCALES[number];
 
 export const metadata: Metadata = {
   title: 'Green Blockchain Monitor',
@@ -56,13 +54,12 @@ async function getPreferredLocale(): Promise<SupportedLocale> {
   return (preferredLocale ? preferredLocale.locale : 'en') as SupportedLocale;
 }
 
-export default async function LocaleLayout({
-  children,
-  params: { locale }
-}: {
+export default async function LocaleLayout(props: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await props.params;
+
   // If no locale is specified in the URL, redirect to the preferred locale
   if (!locale) {
     const preferredLocale = await getPreferredLocale();
@@ -90,7 +87,7 @@ export default async function LocaleLayout({
             <div className="crypto-grid" />
             <Navigation />
             <main className="relative z-10">
-              {children}
+              {props.children}
             </main>
             <Toaster 
               position="bottom-center"
