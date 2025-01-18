@@ -1,33 +1,25 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import { fetchBlockchainData } from '@/lib/blockchain-api';
+import { analyzeBlockchainData } from '@/services/ai/openai-service';
 
 export async function GET() {
     try {
-        // Get insights from the last 24 hours
-        const insights = await prisma.insight.findMany({
-            where: {
-                createdAt: {
-                    gte: new Date(Date.now() - 24 * 60 * 60 * 1000)
-                },
-                isArchived: false
-            },
-            orderBy: {
-                createdAt: 'desc'
-            },
-            include: {
-                user: {
-                    select: {
-                        name: true
-                    }
-                }
-            }
-        });
+        // Fetch data for all networks
+        const metrics = await fetchBlockchainData();
+        
+        // Get AI analysis of the data
+        const { insights, predictions } = await analyzeBlockchainData(metrics);
 
-        return NextResponse.json({ insights });
+        return NextResponse.json({
+            success: true,
+            metrics,
+            insights,
+            predictions
+        });
     } catch (error) {
-        console.error('Error fetching insights:', error);
+        console.error('Error in insights route:', error);
         return NextResponse.json(
-            { error: 'Failed to fetch insights' },
+            { success: false, error: 'Failed to get blockchain insights' },
             { status: 500 }
         );
     }

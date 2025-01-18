@@ -1,136 +1,131 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { toast } from 'react-hot-toast';
-import dynamic from 'next/dynamic';
-
-// Dynamically import chart components to avoid SSR issues
-const SustainabilityChart = dynamic(() => import('./components/charts/SustainabilityChart'), { ssr: false });
-const EmissionsChart = dynamic(() => import('./components/charts/EmissionsChart'), { ssr: false });
-const InsightCards = dynamic(() => import('./components/InsightCards'), { ssr: false });
-
-interface DashboardData {
-  metrics: {
-    timestamp: string;
-    energyUsageKwh: number;
-    emissionsKgCo2: number;
-    transactionCount: number;
-  }[];
-  insights: {
-    id: string;
-    type: 'info' | 'warning' | 'alert';
-    message: string;
-    timestamp: string;
-  }[];
-  predictions: {
-    timestamp: string;
-    energyUsageKwh: number;
-    emissionsKgCo2: number;
-  }[];
-}
+import Dashboard from './components/Dashboard';
 
 export default function Home() {
-  const [data, setData] = useState<DashboardData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [autoRefresh, setAutoRefresh] = useState(true);
-
-  const fetchDashboardData = async () => {
-    try {
-      const response = await fetch('/api/metrics');
-      if (!response.ok) {
-        throw new Error('Failed to fetch dashboard data');
-      }
-      const newData = await response.json();
-      setData(newData);
-      setError(null);
-    } catch (err) {
-      setError('Failed to fetch dashboard data');
-      toast.error('Failed to update dashboard data');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchDashboardData();
-
-    if (autoRefresh) {
-      const interval = setInterval(fetchDashboardData, 30000); // Refresh every 30 seconds
-      return () => clearInterval(interval);
-    }
-  }, [autoRefresh]);
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="p-4 bg-red-100 text-red-700 rounded-md">
-        {error}
-      </div>
-    );
-  }
-
   return (
-    <div className="space-y-8">
-      {/* Dashboard Header */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold text-gray-900">
-            Blockchain Sustainability Dashboard
-          </h1>
-          <div className="flex items-center space-x-4">
-            <label className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                checked={autoRefresh}
-                onChange={(e) => setAutoRefresh(e.target.checked)}
-                className="rounded text-green-600 focus:ring-green-500"
-              />
-              <span className="text-sm text-gray-600">Auto-refresh</span>
-            </label>
-            <button
-              onClick={fetchDashboardData}
-              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
-            >
-              Refresh
-            </button>
-          </div>
+    <div className="space-y-8 p-6 min-h-screen">
+      {/* Header */}
+      <div className="glass-card p-8 rounded-lg relative overflow-hidden border border-gray-800">
+        {/* Background Effect */}
+        <div className="absolute top-0 left-0 right-0 bottom-0 opacity-10">
+          <div className="absolute top-0 right-0 bg-blue-400 rounded-full w-64 h-64 filter blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 left-0 bg-emerald-400 rounded-full w-64 h-64 filter blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
         </div>
-      </div>
 
-      {/* Charts Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {data && (
-          <>
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-semibold mb-4">Sustainability Metrics</h2>
-              <SustainabilityChart data={data.metrics} />
-            </div>
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-semibold mb-4">Emissions Trend</h2>
-              <EmissionsChart
-                historicalData={data.metrics}
-                predictions={data.predictions}
-              />
-            </div>
-          </>
-        )}
-      </div>
+        {/* Content */}
+          {/* Introduction */}
+                <div className="flex justify-between items-center mb-8">
+                    <div className="flex items-center space-x-3">
+                        <svg className="w-10 h-10 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <div>
+                            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
+                                Green Blockchain
+                            </h1>
+                            <p className="text-sm text-gray-400">Ethereum, Bitcoin & Solana Sustainability Monitor</p>
+                        </div>
+                    </div>
+                    <div className="hidden md:flex flex items-center space-x-4" >
+                        <div className="flex items-center space-x-2">
+                            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                            <span className="text-gray-400 text-sm">Live Monitoring</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></div>
+                            <span className="text-gray-400 text-sm">ETH</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></div>
+                            <span className="text-gray-400 text-sm">BTC</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></div>
+                            <span className="text-gray-400 text-sm">SOL</span>
+                        </div>
+                    </div>
+                </div>
 
-      {/* AI Insights */}
-      {data && (
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-4">AI Insights</h2>
-          <InsightCards insights={data.insights} />
-        </div>
-      )}
+                <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
+                    Revolutionizing Blockchain Sustainability
+                </h2>
+                <p className="text-gray-300 text-lg mb-8">
+                    Harness the power of AI to analyze, optimize, and transform the environmental impact of Ethereum, Bitcoin, and Solana networks in real-time.
+                </p>
+
+                <div className="flex flex-wrap gap-4 mb-8">
+                    <button className="glass-card px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-opacity-75 transition-all">
+                        <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></div>
+                        <span className="text-blue-400">ETH Network</span>
+                    </button>
+                    <button className="glass-card px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-opacity-75 transition-all">
+                        <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></div>
+                        <span className="text-yellow-400">BTC Network</span>
+                    </button>
+                    <button className="glass-card px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-opacity-75 transition-all">
+                        <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></div>
+                        <span className="text-purple-400">SOL Network</span>
+                    </button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div className="glass-card p-4 flex items-center space-x-3">
+                        <span className="text-4xl font-bold text-emerald-400">24/7</span>
+                        <div>
+                            <h3 className="font-semibold text-gray-200">Real-time Monitoring</h3>
+                            <p className="text-sm text-gray-400">Continuous network analysis</p>
+                        </div>
+                    </div>
+                    <div className="glass-card p-4 flex items-center space-x-3">
+                        <span className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AI</span>
+                        <div>
+                            <h3 className="font-semibold text-gray-200">Powered Analysis</h3>
+                            <p className="text-sm text-gray-400">Smart insights & predictions</p>
+                        </div>
+                    </div>
+                    <div className="glass-card p-4 flex items-center space-x-3">
+                        <span className="text-4xl font-bold text-blue-400">100%</span>
+                        <div>
+                            <h3 className="font-semibold text-gray-200">Data Transparency</h3>
+                            <p className="text-sm text-gray-400">Verifiable metrics</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="gradient-border p-4">
+                        <div className="flex items-center space-x-2 mb-2">
+                            <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <h3 className="font-semibold text-emerald-400">Real-time Analysis</h3>
+                        </div>
+                        <p className="text-sm text-gray-300">Instant insights about energy usage and emissions from blockchain networks.</p>
+                    </div>
+                    <div className="gradient-border p-4">
+                        <div className="flex items-center space-x-2 mb-2">
+                            <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                            <h3 className="font-semibold text-blue-400">Future Predictions</h3>
+                        </div>
+                        <p className="text-sm text-gray-300">AI-powered forecasts of energy consumption and environmental impact.</p>
+                    </div>
+                    <div className="gradient-border p-4">
+                        <div className="flex items-center space-x-2 mb-2">
+                            <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                            </svg>
+                            <h3 className="font-semibold text-purple-400">Optimization Tips</h3>
+                        </div>
+                        <p className="text-sm text-gray-300">Smart suggestions to improve blockchain sustainability.</p>
+                    </div>
+                </div>
+            </div>
+
+      {/* Dashboard */}
+      <Dashboard />
     </div>
   );
 } 
